@@ -3,6 +3,7 @@ package com.client.injector;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.util.Duration;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 
@@ -39,6 +41,9 @@ public class InjectorController {
     private String selectedProcess = null;
 
     private String dllAbsPath = null;
+
+    @FXML
+    private Button refreshProcesses;
 
 
 
@@ -79,8 +84,12 @@ public class InjectorController {
 
         injectButton.setOnAction(this::handleInjection);
         clearButton.setOnAction(this::handleClear);
-
+        refreshProcesses.setOnAction(event -> {
+            processSelector.setItems(FXCollections.observableArrayList());
+            fillProcesses(processSelector);
+        });
     }
+
 
     private void handleClear(ActionEvent actionEvent) {
         selectedProcess = null;
@@ -90,32 +99,27 @@ public class InjectorController {
 
     private void handleInjection(ActionEvent actionEvent) {
         if(selectedProcess != null && dllAbsPath != null ) {
+            if(new File(dllAbsPath).exists()) {
+                try {
+                ProcessBuilder pb = new ProcessBuilder("abs path to injector exe", selectedProcess, dllAbsPath);
+                //dir of exe file
+                pb.directory(new File("abs path to the directory of injector"));
+                    Process p = pb.start();
+                } catch (IOException e) {
+                    System.out.println("Injection failed");
+                    throw new RuntimeException(e);
+                }
+                errorMsg.setVisible(true);
+                errorMsg.setStyle("-fx-text-fill: green");
+                errorMsg.setText("Successfully injected");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            errorMsg.setVisible(true);
-            errorMsg.setStyle("-fx-text-fill: green");
-            errorMsg.setText("Successfully injected");
-
-            Timeline timeline = new Timeline(new KeyFrame(
-                    Duration.seconds(3),
-                    event -> errorMsg.setVisible(false)
-            ));
-            timeline.setCycleCount(1);
-            timeline.play();
+                Timeline timeline = new Timeline(new KeyFrame(
+                        Duration.seconds(3),
+                        event -> errorMsg.setVisible(false)
+                ));
+                timeline.setCycleCount(1);
+                timeline.play();
+            }
         }else{
             errorMsg.setVisible(true);
             errorMsg.setStyle("-fx-text-fill: red;");
@@ -141,12 +145,12 @@ public class InjectorController {
                     new BufferedReader(new InputStreamReader(p.getInputStream()));
             //skip over header
             input.readLine();
-            line = input.readLine();
-            processSelector.setPromptText(line.substring(0,25).strip() + " | " + line.substring(25, 34).strip());
+            input.readLine();
+            processSelector.setPromptText("Select a process...");
             input.readLine();
 
             while ((line = input.readLine()) != null) {
-                processName = line.substring(0,25).strip() + " | " + line.substring(25, 34).strip();
+                processName = line.substring(0,25).strip();
                 //If you need anything from task list do it here
                 processNameList.add(processName);
             }
