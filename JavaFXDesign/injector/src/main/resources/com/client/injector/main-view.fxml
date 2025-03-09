@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.injector.InjectorController">
+   <children>
+      <BorderPane prefHeight="74.0" prefWidth="600.0" style="-fx-background-color: skyblue;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <Label alignment="CENTER" prefHeight="48.0" prefWidth="345.0" text="Simple Injector" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="36.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane layoutY="351.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: skyblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <center>
+            <Label fx:id="errorMsg" prefHeight="49.0" prefWidth="226.0" visible="false" wrapText="true" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="16.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <HBox layoutX="40.0" layoutY="82.0" prefHeight="182.0" prefWidth="520.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="82.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="251.0" prefWidth="260.0" style="-fx-border-color: skyblue; -fx-border-width: 5;">
+               <children>
+                  <Label alignment="CENTER" prefHeight="42.0" prefWidth="262.0" style="-fx-font-family: Bell MT; -fx-background-color: skyblue; -fx-font-weight: bold;" text="SELECT A PROCESS:">
+                     <font>
+                        <Font name="Blackadder ITC" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="50.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ComboBox fx:id="processSelector" editable="true" prefWidth="180.0" style="-fx-border-color: gray;">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin></ComboBox>
+                  <Button fx:id="clearButton" mnemonicParsing="false" style="-fx-background-color: lightgray; -fx-border-color: gray; -fx-font-weight: bold;" text="Clear Selection" />
+               </children>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="260.0" style="-fx-border-color: skyblue; -fx-border-width: 5;">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="262.0" style="-fx-font-family: Bell MT; -fx-background-color: skyblue; -fx-font-weight: bold;" text="SELECT YOUR DLL:">
+                     <font>
+                        <Font name="Bell MT" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="50.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button fx:id="dllSelector" mnemonicParsing="false" prefWidth="180.0" style="-fx-background-color: lightgray; -fx-font-weight: bold; -fx-border-color: gray;" text="Choose DLL" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Button fx:id="injectButton" layoutX="225.0" layoutY="292.0" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: lightgray; -fx-font-weight: bold; -fx-border-color: gray;" text="Inject" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="224.79999999999998" AnchorPane.topAnchor="292.0" />
+   </children>
+</AnchorPane>
